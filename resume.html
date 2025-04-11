@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resume Builder | NEXT ROLE</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+</head>
+<body class="bg-blue-50 min-h-screen p-8">
+
+  <div class="max-w-6xl mx-auto bg-white rounded-lg shadow p-8">
+    <h2 class="text-2xl font-bold text-blue-700 mb-6">Resume Score Predictor & Suggestions</h2>
+
+    <!-- Resume Upload -->
+    <div class="mb-6">
+      <label class="block font-medium mb-2">Upload Your Resume (PDF):</label>
+      <input type="file" id="resumeInput" accept="application/pdf" class="block w-full border p-2 rounded" onchange="extractTextFromPDF(event)">
+    </div>
+
+    <!-- Score and Suggestions Section -->
+    <div id="results" class="hidden">
+      <div class="mb-4">
+        <p class="text-lg font-semibold text-green-600">Your Resume Score: <span id="score">0</span>/100</p>
+      </div>
+      <div class="mb-4">
+        <h3 class="text-lg font-semibold text-gray-800">Skill Suggestions:</h3>
+        <ul id="suggestionList" class="list-disc pl-5 text-gray-700"></ul>
+      </div>
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-800">Placement Advice:</h3>
+        <p id="adviceText" class="text-gray-700">...</p>
+      </div>
+    </div>
+
+    <!-- Editable Resume Form -->
+    <div class="mb-6">
+      <h3 class="text-lg font-semibold text-gray-800 mb-2">Edit Resume Content:</h3>
+      <textarea id="resumeText" rows="10" class="w-full border p-3 rounded text-sm" placeholder="Paste your resume text here or make changes based on suggestions..."></textarea>
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex gap-4">
+      <button onclick="predictScore()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Predict Score</button>
+      <button onclick="generateUpdatedResume()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Download Updated Resume</button>
+    </div>
+  </div>
+
+  <script>
+    // Extract text from uploaded PDF
+    async function extractTextFromPDF(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const fileReader = new FileReader();
+      fileReader.onload = async function () {
+        const typedarray = new Uint8Array(this.result);
+        const pdf = await pdfjsLib.getDocument(typedarray).promise;
+        let extractedText = '';
+
+        for (let i = 1; i <= pdf.numPages; i++) {
+          const page = await pdf.getPage(i);
+          const content = await page.getTextContent();
+          const strings = content.items.map(item => item.str);
+          extractedText += strings.join(' ') + '\n';
+        }
+
+        document.getElementById('resumeText').value = extractedText.trim();
+      };
+      fileReader.readAsArrayBuffer(file);
+    }
+
+    // Score prediction and suggestions
+    function predictScore() {
+      const resumeText = document.getElementById("resumeText").value.toLowerCase();
+      let score = 90;
+      let suggestions = [];
+
+      if (!resumeText.includes("react")) {
+        suggestions.push("Mention React experience or certification.");
+        score -= 5;
+      }
+      if (!resumeText.includes("sql")) {
+        suggestions.push("Include any SQL or database knowledge.");
+        score -= 3;
+      }
+      if (!resumeText.includes("project")) {
+        suggestions.push("Add project-based experience with outcomes.");
+        score -= 2;
+      }
+      if (!resumeText.includes("linkedin")) {
+        suggestions.push("Add your LinkedIn profile.");
+        score -= 2;
+      }
+      if (!resumeText.includes("leadership") && !resumeText.includes("volunteer")) {
+        suggestions.push("Include leadership or volunteer experience.");
+        score -= 3;
+      }
+
+      document.getElementById("results").classList.remove("hidden");
+      document.getElementById("score").innerText = score;
+      document.getElementById("suggestionList").innerHTML = suggestions.map(s => `<li>${s}</li>`).join("");
+      document.getElementById("adviceText").innerText = "Upskill in React, DSA, and SQL. Apply on LinkedIn and Internshala. Tailor resume to highlight projects, roles, and achievements.";
+    }
+
+    // Generate updated resume text
+    function generateUpdatedResume() {
+      const userContent = document.getElementById("resumeText").value;
+      const finalResume = `
+===== Updated Resume Template =====
+
+🔹 NAME:
+[Your Name Here]
+
+🔹 SUMMARY:
+Motivated CSE student with hands-on experience in frontend and backend development. Strong foundation in data structures and enthusiastic about full-stack development.
+
+🔹 SKILLS:
+React, Node.js, Express.js, SQL, MongoDB, Git, HTML/CSS, JavaScript
+
+🔹 PROJECTS:
+- Portfolio Website using React hosted on GitHub Pages
+- Student Result Management System (MERN Stack)
+- Resume Score Predictor using JS & AI (Current Project)
+
+🔹 EXPERIENCE:
+- Contributor @ GitHub Open Source
+- Campus Ambassador, Smart India Hackathon 2024
+
+🔹 EDUCATION:
+B.Tech in Computer Science Engineering – [Your University]
+
+🔹 CERTIFICATIONS:
+- Full Stack Web Dev by FreeCodeCamp
+- SQL for Data Science by Coursera
+
+🔹 CONTACT:
+📧 Email | 🔗 LinkedIn | 💻 GitHub
+
+=================================
+
+📄 Original Resume Text (from Upload or Edits):
+${userContent}
+`;
+
+      const blob = new Blob([finalResume], { type: "text/plain" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "Updated_Resume.txt";
+      link.click();
+    }
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>

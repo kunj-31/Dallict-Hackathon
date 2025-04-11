@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Job Trends 2025 - NEXT ROLE</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background-color: #f9fafb;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      text-align: center;
+      color: #1e3a8a;
+      margin-bottom: 1.5rem;
+    }
+
+    canvas {
+      max-width: 100%;
+      margin-bottom: 2rem;
+    }
+
+    .explanation {
+      font-size: 1rem;
+      color: #374151;
+      line-height: 1.6;
+    }
+
+    .highlight {
+      color: #10b981;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>📊 Top Growing Sectors in India — 2025</h2>
+  <canvas id="jobTrendChart" width="400" height="300"></canvas>
+
+  <div class="explanation">
+    <p>In <span class="highlight">2025</span>, India’s job market is evolving rapidly with several sectors seeing significant growth:</p>
+    <ul>
+      <li><span class="highlight">IT & Tech (20%)</span> – Demand for AI, Cloud, Web & App developers.</li>
+      <li><span class="highlight">Cybersecurity (18%)</span> – High growth due to digital threats.</li>
+      <li><span class="highlight">Retail (12%)</span> – Omnichannel commerce and online shopping boost jobs.</li>
+      <li><span class="highlight">Telecom (10%)</span> – 5G expansion drives opportunities.</li>
+      <li><span class="highlight">Banking & Finance (8%)</span> – Rise in fintech, digital banking, UPI adoption.</li>
+    </ul>
+    <p>This insight can help you plan a career path with better growth potential. 💼🚀</p>
+  </div>
+</div>
+
+<script>
+  const ctx = document.getElementById('jobTrendChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['IT & Tech', 'Retail', 'Telecom', 'Banking/Finance', 'Cybersecurity'],
+      datasets: [{
+        label: 'Projected Growth (%)',
+        data: [20, 12, 10, 8, 18],
+        backgroundColor: [
+          '#6366f1', // Blue
+          '#10b981', // Green
+          '#f59e0b', // Amber
+          '#ec4899', // Pink
+          '#3b82f6'  // Sky Blue
+        ],
+        borderRadius: 10,
+        borderSkipped: false
+      }]
+    },
+    options: {
+      plugins: {
+        title: {
+          display: false
+        },
+        legend: {
+          display: false
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            callback: value => value + '%'
+          }
+        }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

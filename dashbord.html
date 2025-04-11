@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard | NEXT ROLE</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-blue-50 min-h-screen flex">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-white border-r min-h-screen shadow-lg hidden md:flex flex-col">
+    <div class="text-blue-700 text-2xl font-bold p-6">NEXT ROLE</div>
+    <nav class="flex-grow px-4 space-y-3">
+      <a href="dashboard.html" class="flex items-center text-blue-600 font-semibold p-2 rounded-lg bg-blue-100">
+        <i data-lucide="layout-dashboard" class="w-5 h-5 mr-2"></i> Dashboard
+      </a>
+      <a href="skills.html" class="flex items-center text-gray-700 hover:text-blue-600 p-2 rounded-lg hover:bg-blue-50">
+        <i data-lucide="list" class="w-5 h-5 mr-2"></i> Skill Assignment
+      </a>
+      <a href="resume.html" class="flex items-center text-gray-700 hover:text-blue-600 p-2 rounded-lg hover:bg-blue-50">
+        <i data-lucide="file-text" class="w-5 h-5 mr-2"></i> Resume Builder
+      </a>
+      <a href="path.html" class="flex items-center text-gray-700 hover:text-blue-600 p-2 rounded-lg hover:bg-blue-50">
+        <i data-lucide="map" class="w-5 h-5 mr-2"></i> Career Path
+      </a>
+      <a href="job.html" class="flex items-center text-gray-700 hover:text-blue-600 p-2 rounded-lg hover:bg-blue-50">
+        <i data-lucide="trending-up" class="w-5 h-5 mr-2"></i> Job Trends
+      </a>
+      <a href="recommendation.html" class="flex items-center text-gray-700 hover:text-blue-600 p-2 rounded-lg hover:bg-blue-50">
+        <i data-lucide="thumbs-up" class="w-5 h-5 mr-2"></i> Recommendations
+      </a>
+      <a href="profile.html" class="flex items-center text-gray-700 hover:text-blue-600 p-2 rounded-lg hover:bg-blue-50">
+        <i data-lucide="user" class="w-5 h-5 mr-2"></i> Profile
+      </a>
+      <a href="login.html" class="flex items-center text-gray-700 hover:text-red-500 p-2 rounded-lg hover:bg-red-50">
+        <i data-lucide="log-out" class="w-5 h-5 mr-2"></i> Logout
+      </a>
+    </nav>
+  </aside>
+
+<!-- Dashboard Cards -->
+<main class="flex-grow p-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  
+      <!-- Resume Score -->
+      <a href="resume-score.html" class="bg-white rounded-lg p-4 shadow hover:shadow-md transition block h-40">
+        <i data-lucide="file-check" class="w-6 h-6 text-blue-600 mb-1"></i>
+        <h3 class="text-md font-semibold text-gray-800 mb-1">Resume Score</h3>
+        <p class="text-sm text-gray-600">Check how strong your resume is and get suggestions.</p>
+      </a>
+  
+      <!-- Skill Assignment -->
+      <a href="skills.html" class="bg-white rounded-lg p-4 shadow hover:shadow-md transition block h-40">
+        <i data-lucide="list" class="w-6 h-6 text-blue-600 mb-1"></i>
+        <h3 class="text-md font-semibold text-gray-800 mb-1">Skill Assignment</h3>
+        <p class="text-sm text-gray-600">Find skills you should learn based on your goals.</p>
+      </a>
+  
+      <!-- Career Path -->
+      <a href="path.html" class="bg-white rounded-lg p-4 shadow hover:shadow-md transition block h-40">
+        <i data-lucide="map" class="w-6 h-6 text-blue-600 mb-1"></i>
+        <h3 class="text-md font-semibold text-gray-800 mb-1">Career Path</h3>
+        <p class="text-sm text-gray-600">Explore customized learning paths for your dream job.</p>
+      </a>
+  
+      <!-- Job Trends -->
+      <a href="job.html" class="bg-white rounded-lg p-4 shadow hover:shadow-md transition block h-40">
+        <i data-lucide="bar-chart-2" class="w-6 h-6 text-blue-600 mb-1"></i>
+        <h3 class="text-md font-semibold text-gray-800 mb-1">Job Trends</h3>
+        <p class="text-sm text-gray-600">Analyze the latest job market trends and top roles.</p>
+      </a>
+  
+      <!-- AI Recommendations -->
+      <a href="recommendations.html" class="bg-white rounded-lg p-4 shadow hover:shadow-md transition block h-40">
+        <i data-lucide="sparkles" class="w-6 h-6 text-blue-600 mb-1"></i>
+        <h3 class="text-md font-semibold text-gray-800 mb-1">AI Recommendations</h3>
+        <p class="text-sm text-gray-600">Get personalized recommendations for skills and jobs.</p>
+      </a>
+  
+      <!-- Resume Builder -->
+      <a href="resume.html" class="bg-white rounded-lg p-4 shadow hover:shadow-md transition block h-40">
+        <i data-lucide="file-text" class="w-6 h-6 text-blue-600 mb-1"></i>
+        <h3 class="text-md font-semibold text-gray-800 mb-1">Resume Builder</h3>
+        <p class="text-sm text-gray-600">Create a professional resume with ease.</p>
+      </a>
+  
+    </div>
+
+  
+  
+  </div>
+
+</main>
+
+<script>
+  lucide.createIcons();
+</script>
+</body>
+</html>

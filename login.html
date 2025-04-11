@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Auth | NEXT ROLE</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-blue-50 flex items-center justify-center min-h-screen">
+
+  <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
+    <h1 class="text-3xl font-bold text-center text-blue-700 mb-4">NEXT ROLE</h1>
+    <h2 id="formTitle" class="text-xl font-semibold text-center text-gray-800 mb-6">Login</h2>
+
+    <form id="authForm" class="space-y-4">
+      <input type="email" placeholder="Email" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input type="password" placeholder="Password" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <div class="text-right text-sm">
+        <a href="reset_password.html" class="text-blue-600 hover:underline">Forgot Password?</a>
+
+
+      </div>
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 font-semibold">Login</button>
+    </form>
+
+    <p id="toggleText" class="mt-4 text-center text-sm text-gray-600">
+      Don't have an account? <a href="#" onclick="toggleForm()" class="text-blue-600 font-medium hover:underline">Sign Up</a>
+    </p>
+  </div>
+
+  <script>
+    const formTitle = document.getElementById("formTitle");
+    const authForm = document.getElementById("authForm");
+    const toggleText = document.getElementById("toggleText");
+
+    let isLogin = true;
+
+    function toggleForm() {
+      isLogin = !isLogin;
+      if (!isLogin) {
+        formTitle.textContent = "Sign Up";
+        authForm.innerHTML = `
+          <input type="text" placeholder="Name" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input type="email" placeholder="Email" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input type="password" placeholder="Password" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 font-semibold">Sign Up</button>
+        `;
+        toggleText.innerHTML = `Already have an account? <a href="#" onclick="toggleForm()" class="text-blue-600 font-medium hover:underline">Login</a>`;
+      } else {
+        formTitle.textContent = "Login";
+        authForm.innerHTML = `
+          <input type="email" placeholder="Email" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input type="password" placeholder="Password" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <div class="text-right text-sm">
+            <a href="#" onclick="alert('Redirect to forgot password page');" class="text-blue-600 hover:underline">Forgot Password?</a>
+          </div>
+          <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 font-semibold">Login</button>
+        `;
+        toggleText.innerHTML = `Don't have an account? <a href="#" onclick="toggleForm()" class="text-blue-600 font-medium hover:underline">Sign Up</a>`;
+      }
+    }
+  </script>
+</body>
+</html>

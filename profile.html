@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile | NextRole</title>
+  <link rel="stylesheet" href="profile.css" />
+</head>
+<body>
+  <div class="top-bar">
+    <h1><span class="underline">NEXT ROLE</span></h1>
+  </div>
+
+  <div class="profile-container">
+    <div class="profile-card">
+      <div class="profile-pic-container">
+        <img src="https://via.placeholder.com/120" alt="Profile" id="profileImage">
+        <input type="file" id="upload" hidden accept="image/*" onchange="loadImage(event)">
+        <label for="upload" class="edit-btn">Edit</label>
+      </div>
+
+      <form class="profile-form">
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email" required>
+        <input type="tel" placeholder="Phone Number" required>
+        <input type="text" placeholder="Skills (e.g., React, Java, Python)" required>
+        <textarea placeholder="About You..." rows="4" required></textarea>
+        <button type="submit" class="btn">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const loadImage = (event) => {
+      const image = document.getElementById('profileImage');
+      image.src = URL.createObjectURL(event.target.files[0]);
+    };
+  </script>
+</body>
+</html>
