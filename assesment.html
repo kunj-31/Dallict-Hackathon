@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Skill & Interest Assessment</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f8ff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .quiz-container {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 123, 255, 0.1);
+      width: 500px;
+      max-width: 90%;
+    }
+
+    .question {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #003366;
+    }
+
+    .options label {
+      display: block;
+      background: #e6f0ff;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    .progress-bar {
+      height: 10px;
+      background: #007bff;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      width: 0%;
+      transition: width 0.3s;
+    }
+
+    .progress-container {
+      background: #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="question" id="questionText"></div>
+    <div class="options" id="optionsContainer"></div>
+    <button onclick="nextQuestion()">Next</button>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "Which activity do you enjoy the most?",
+        options: ["Solving puzzles", "Designing graphics", "Helping others", "Building gadgets"]
+      },
+      {
+        question: "How confident are you in public speaking?",
+        options: ["Very confident", "Somewhat confident", "Not confident", "I avoid it"]
+      },
+      {
+        question: "Do you enjoy working with numbers?",
+        options: ["Yes, a lot", "A little", "Not really", "Not at all"]
+      },
+      {
+        question: "Rate your computer skills:",
+        options: ["Expert", "Intermediate", "Beginner", "None"]
+      }
+    ];
+
+    let currentQuestion = 0;
+    let answers = [];
+
+    function renderQuestion() {
+      const q = questions[currentQuestion];
+      document.getElementById("questionText").textContent = q.question;
+
+      const optionsHtml = q.options.map((option, index) => `
+        <label>
+          <input type="radio" name="option" value="${option}" required />
+          ${option}
+        </label>
+      `).join("");
+
+      document.getElementById("optionsContainer").innerHTML = optionsHtml;
+
+      // Update progress bar
+      const progress = ((currentQuestion) / questions.length) * 100;
+      document.getElementById("progressBar").style.width = progress + "%";
+    }
+
+    function nextQuestion() {
+      const selected = document.querySelector('input[name="option"]:checked');
+      if (!selected) {
+        alert("Please select an answer.");
+        return;
+      }
+
+      answers.push({
+        question: questions[currentQuestion].question,
+        answer: selected.value
+      });
+
+      currentQuestion++;
+
+      if (currentQuestion < questions.length) {
+        renderQuestion();
+      } else {
+        document.querySelector(".quiz-container").innerHTML = `
+          <h2>Assessment Complete ✅</h2>
+          <p>Thank you for submitting your assessment!</p>
+          <button onclick="goToNext()">See Recommendations</button>
+        `;
+      }
+    }
+
+    function goToNext() {
+      console.log("User Answers:", answers); // You can POST this to your backend
+      window.location.href = "/market-match.html";
+    }
+
+    renderQuestion();
+  </script>
+</body>
+</html>
