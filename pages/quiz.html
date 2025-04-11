@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Skill Quiz | Skill Growth Platform</title>
+  <link rel="stylesheet" href="../styles/style.css" />
+</head>
+<body>
+  <div class="container quiz-box">
+    <h2>🧠 Skill & Interest Assessment</h2>
+    <form id="quizForm">
+      <div class="question">
+        <p>1. What kind of activities do you enjoy most?</p>
+        <label><input type="radio" name="q1" value="Tech" required /> Solving puzzles or coding</label><br>
+        <label><input type="radio" name="q1" value="Creative" /> Drawing, designing, or writing</label><br>
+        <label><input type="radio" name="q1" value="Practical" /> Working with hands or machines</label>
+      </div>
+
+      <div class="question">
+        <p>2. Which subject did you like the most in school?</p>
+        <label><input type="radio" name="q2" value="Math" required /> Mathematics</label><br>
+        <label><input type="radio" name="q2" value="Science" /> Science</label><br>
+        <label><input type="radio" name="q2" value="Art" /> Art or Literature</label>
+      </div>
+
+      <div class="question">
+        <p>3. What’s your ideal work style?</p>
+        <label><input type="radio" name="q3" value="Team" required /> Working in teams</label><br>
+        <label><input type="radio" name="q3" value="Solo" /> Independent problem solving</label><br>
+        <label><input type="radio" name="q3" value="HandsOn" /> Hands-on projects</label>
+      </div>
+
+      <button type="submit" class="btn">Submit Quiz</button>
+    </form>
+  </div>
+
+  <script src="../scripts/quiz.js"></script>
+</body>
+</html>
