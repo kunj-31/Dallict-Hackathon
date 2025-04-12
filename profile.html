@@ -3,38 +3,174 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Profile | NextRole</title>
-  <link rel="stylesheet" href="profile.css" />
+  <title>User Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <div class="top-bar">
-    <h1><span class="underline">NEXT ROLE</span></h1>
-  </div>
+<body class="bg-gray-100 font-sans">
 
-  <div class="profile-container">
-    <div class="profile-card">
-      <div class="profile-pic-container">
-        <img src="https://via.placeholder.com/120" alt="Profile" id="profileImage">
-        <input type="file" id="upload" hidden accept="image/*" onchange="loadImage(event)">
-        <label for="upload" class="edit-btn">Edit</label>
+<!-- Profile Card -->
+<div class="max-w-4xl mx-auto mt-10 bg-white shadow-lg rounded-2xl overflow-hidden">
+  <div class="p-6 sm:flex sm:items-center">
+    <img id="profileImage" src="https://i.pravatar.cc/150?img=68" alt="Profile" class="w-32 h-32 rounded-full border-4 border-blue-500 shadow-md mx-auto sm:mx-0 sm:mr-6" />
+    <div class="text-center sm:text-left">
+      <h2 id="profileName" class="text-3xl font-bold text-gray-800">New User</h2>
+      <p id="profileRole" class="text-sm text-gray-500">Beginner</p>
+      <div class="mt-4">
+        <button onclick="openModal()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Edit Profile</button>
       </div>
-
-      <form class="profile-form">
-        <input type="text" placeholder="Full Name" required>
-        <input type="email" placeholder="Email" required>
-        <input type="tel" placeholder="Phone Number" required>
-        <input type="text" placeholder="Skills (e.g., React, Java, Python)" required>
-        <textarea placeholder="About You..." rows="4" required></textarea>
-        <button type="submit" class="btn">Save Changes</button>
-      </form>
     </div>
   </div>
 
-  <script>
-    const loadImage = (event) => {
-      const image = document.getElementById('profileImage');
-      image.src = URL.createObjectURL(event.target.files[0]);
-    };
-  </script>
+  <hr class="my-4" />
+
+  <div class="px-6 pb-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <div>
+      <h3 class="text-lg font-semibold text-gray-700 mb-2">Skills</h3>
+      <ul id="skillsList" class="space-y-2"></ul>
+    </div>
+    <div>
+      <h3 class="text-lg font-semibold text-gray-700 mb-2">Profile Stats</h3>
+      <ul class="space-y-2">
+        <li id="joinedDate"><strong>Joined:</strong> Apr 2025</li>
+        <li><strong>Roadmap:</strong> Data Analyst</li>
+        <li id="completedSteps"><strong>Completed:</strong> 0 / 10</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div id="editModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+  <div class="bg-white p-6 rounded-lg w-full max-w-md shadow-xl">
+    <h2 class="text-xl font-bold mb-4">Edit Profile</h2>
+    
+    <label class="block mb-2 text-sm font-medium">Name:</label>
+    <input id="editName" type="text" class="w-full p-2 border rounded mb-3" placeholder="Enter name" />
+    
+    <label class="block mb-2 text-sm font-medium">Role:</label>
+    <input id="editRole" type="text" class="w-full p-2 border rounded mb-3" placeholder="Enter role" />
+    
+    <label class="block mb-2 text-sm font-medium">Avatar URL:</label>
+    <input id="editAvatar" type="text" class="w-full p-2 border rounded mb-4" placeholder="https://..." />
+
+    <label class="block mb-2 text-sm font-medium">Skills:</label>
+    <div id="skillInputs" class="space-y-2 mb-4"></div>
+
+    <div class="flex justify-end space-x-2">
+      <button onclick="closeModal()" class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400">Cancel</button>
+      <button onclick="saveProfile()" class="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+  let userData = {
+    name: "New User",
+    role: "Beginner",
+    avatar: "https://i.pravatar.cc/150?img=68",
+    joinedDate: new Date().toLocaleString('default', { month: 'short', year: 'numeric' }),
+    completedSteps: 0,
+    totalSteps: 10,
+    skills: {
+      Python: 0,
+      SQL: 0,
+      Excel: 0
+    }
+  };
+
+  window.onload = () => {
+    const saved = localStorage.getItem('userProfile');
+    if (saved) {
+      userData = JSON.parse(saved);
+    }
+    loadProfile();
+  };
+
+  function loadProfile() {
+    document.getElementById('profileName').innerText = userData.name;
+    document.getElementById('profileRole').innerText = userData.role;
+    document.getElementById('profileImage').src = userData.avatar;
+    document.getElementById('joinedDate').innerHTML = `<strong>Joined:</strong> ${userData.joinedDate}`;
+    document.getElementById('completedSteps').innerHTML = `<strong>Completed:</strong> ${userData.completedSteps} / ${userData.totalSteps}`;
+
+    const skillsList = document.getElementById('skillsList');
+    skillsList.innerHTML = '';
+    for (const skill of Object.keys(userData.skills)) {
+      skillsList.innerHTML += `
+        <li class="flex justify-between">
+          <span>${skill}</span>
+        </li>`;
+    }
+  }
+
+  function openModal() {
+    document.getElementById('editModal').classList.remove('hidden');
+    document.getElementById('editName').value = userData.name;
+    document.getElementById('editRole').value = userData.role;
+    document.getElementById('editAvatar').value = userData.avatar;
+    renderSkillInputs();
+  }
+
+  function closeModal() {
+    document.getElementById('editModal').classList.add('hidden');
+  }
+
+  function renderSkillInputs() {
+    const skillInputs = document.getElementById('skillInputs');
+    skillInputs.innerHTML = '';
+
+    for (const skill of Object.keys(userData.skills)) {
+      skillInputs.innerHTML += `
+        <div class="flex gap-2">
+          <input type="text" class="p-2 border rounded w-full" value="${skill}" data-skill-name />
+          <button type="button" onclick="removeSkill('${skill}')" class="text-red-600 font-bold">✖</button>
+        </div>`;
+    }
+
+    skillInputs.innerHTML += `
+      <p class="text-sm text-gray-500">Skills: ${Object.keys(userData.skills).length} / 25</p>
+      <button type="button" onclick="addSkill()" class="mt-2 px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">+ Add Skill</button>
+    `;
+  }
+
+  function addSkill() {
+    const currentCount = Object.keys(userData.skills).length;
+    if (currentCount >= 25) {
+      alert("You can only add up to 25 skills.");
+      return;
+    }
+
+    const uniqueName = `Skill${Date.now()}`;
+    userData.skills[uniqueName] = 0;
+    renderSkillInputs();
+  }
+
+  function removeSkill(skillName) {
+    delete userData.skills[skillName];
+    renderSkillInputs();
+  }
+
+  function saveProfile() {
+    userData.name = document.getElementById('editName').value || "New User";
+    userData.role = document.getElementById('editRole').value || "Beginner";
+    userData.avatar = document.getElementById('editAvatar').value || "https://i.pravatar.cc/150?img=68";
+
+    const skillInputs = document.querySelectorAll('[data-skill-name]');
+    const newSkills = {};
+
+    skillInputs.forEach((input, i) => {
+      const name = input.value.trim() || `Skill${i}`;
+      newSkills[name] = 0; // fixed score of 0
+    });
+
+    userData.skills = newSkills;
+
+    localStorage.setItem('userProfile', JSON.stringify(userData));
+    closeModal();
+    loadProfile();
+  }
+</script>
+
 </body>
 </html>

@@ -1,210 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Skill Path | NEXT ROLE</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
-</head>
-<body class="bg-blue-50 min-h-screen flex flex-col items-center">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skill Path | NEXT ROLE</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body class="bg-blue-50 min-h-screen flex flex-col items-center">
+    <!-- Header -->
+    <header
+      class="bg-white w-full shadow p-4 flex justify-between items-center"
+    >
+      <h1 class="text-xl font-bold text-blue-700">NEXT ROLE</h1>
+      <a href="skills.html" class="text-blue-600 hover:underline font-medium"
+        >← Back to Skills</a
+      >
+    </header>
 
-  <!-- Header -->
-  <header class="bg-white w-full shadow p-4 flex justify-between items-center">
-    <h1 class="text-xl font-bold text-blue-700">NEXT ROLE</h1>
-    <a href="skills.html" class="text-blue-600 hover:underline font-medium">← Back to Skills</a>
-  </header>
+    <!-- Skill Title -->
+    <div class="text-center mt-10 mb-6">
+      <h2 id="skillTitle" class="text-3xl font-semibold text-gray-800"></h2>
+      <p class="text-sm text-gray-600 mt-1">
+        Your step-by-step guide to mastering this skill.
+      </p>
+    </div>
 
-  <!-- Skill Title -->
-  <div class="text-center mt-10 mb-6">
-    <h2 id="skillTitle" class="text-3xl font-semibold text-gray-800"></h2>
-    <p class="text-sm text-gray-600 mt-1">Your step-by-step guide to mastering this skill.</p>
-  </div>
+    <!-- CandyCrush Style Phase Steps -->
+    <section
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl w-full px-6 mb-10"
+      id="phaseContainer"
+    >
+      <!-- Dynamic content here -->
+    </section>
 
-  <!-- CandyCrush Style Phase Steps -->
-  <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl w-full px-6 mb-10" id="phaseContainer">
-    <!-- Dynamic content here -->
-  </section>
+    <footer
+      class="text-sm text-gray-500 py-4 border-t w-full text-center mt-auto"
+    >
+      © 2025 NEXT ROLE. All rights reserved.
+    </footer>
 
-  <footer class="text-sm text-gray-500 py-4 border-t w-full text-center mt-auto">
-    © 2025 NEXT ROLE. All rights reserved.
-  </footer>
+    <script>
+      lucide.createIcons();
 
-  <script>
-    lucide.createIcons();
+      const phaseData = {
+        AI: {
+          title: "AI & Machine Learning",
+          steps: [
+            "Learn Python basics",
+            "Study statistics & linear algebra",
+            "Understand ML algorithms",
+            "Practice with NumPy & pandas",
+            "Master supervised learning",
+            "Work with neural networks",
+            "Use TensorFlow & PyTorch",
+            "Build end-to-end projects",
+            "Deploy ML models",
+            "Learn AI ethics & trends",
+          ],
+        },
+        FullStack: {
+          title: "Full Stack Development",
+          steps: [
+            "Learn HTML, CSS, JavaScript",
+            "Build static websites",
+            "Learn React or Vue.js",
+            "Understand REST APIs",
+            "Backend with Node.js & Express",
+            "Use MongoDB or SQL",
+            "Authentication & sessions",
+            "Build full stack projects",
+            "Test & debug code",
+            "Deploy on cloud platforms",
+          ],
+        },
+        DataAnalysis: {
+          title: "Data Analysis",
+          steps: [
+            "Understand data types",
+            "Work with Excel & CSVs",
+            "Use pandas & NumPy",
+            "Clean and preprocess data",
+            "Visualize with matplotlib/seaborn",
+            "Apply statistical methods",
+            "Explore datasets & trends",
+            "Build dashboards",
+            "Use SQL for queries",
+            "Present data insights",
+          ],
+        },
+        Cybersecurity: {
+          title: "Cybersecurity",
+          steps: [
+            "Understand networks",
+            "Learn about vulnerabilities",
+            "Use firewalls & encryption",
+            "Practice ethical hacking",
+            "Understand malware types",
+            "Use tools like Wireshark",
+            "Explore cybersecurity laws",
+            "Simulate cyber attacks",
+            "Respond to threats",
+            "Certifications like CEH",
+          ],
+        },
+        DevOps: {
+          title: "DevOps",
+          steps: [
+            "Learn version control (Git)",
+            "Understand CI/CD",
+            "Use Jenkins & GitHub Actions",
+            "Containerize with Docker",
+            "Use Kubernetes",
+            "Monitor performance",
+            "Handle logs and errors",
+            "Infrastructure as Code (IaC)",
+            "Automate deployments",
+            "Collaborate with teams",
+          ],
+        },
+        Cloud: {
+          title: "Cloud Computing",
+          steps: [
+            "Understand cloud basics",
+            "Explore AWS, Azure, GCP",
+            "Use cloud storage",
+            "Deploy VMs",
+            "Use databases in cloud",
+            "Networking in cloud",
+            "Set up monitoring",
+            "Use CLI tools",
+            "Secure cloud apps",
+            "Get certified (e.g., AWS)",
+          ],
+        },
+        UIUX: {
+          title: "UI/UX Design",
+          steps: [
+            "Understand design principles",
+            "Sketch wireframes",
+            "Use Figma or Adobe XD",
+            "Design user journeys",
+            "Create mockups",
+            "Work on color & typography",
+            "Test with users",
+            "Get feedback",
+            "Collaborate with devs",
+            "Build design systems",
+          ],
+        },
+        Database: {
+          title: "Database Management",
+          steps: [
+            "Understand database types",
+            "Learn SQL",
+            "Use MySQL/PostgreSQL",
+            "Design schemas",
+            "Query optimization",
+            "Use NoSQL (MongoDB)",
+            "Backups and recovery",
+            "Work with big data",
+            "Data migration",
+            "Secure databases",
+          ],
+        },
+        Marketing: {
+          title: "Digital Marketing",
+          steps: [
+            "Understand marketing funnels",
+            "Learn SEO basics",
+            "Use Google Ads",
+            "Work with content strategy",
+            "Understand analytics",
+            "Engage on social media",
+            "Run campaigns",
+            "Email marketing",
+            "Optimize conversions",
+            "Certifications (Google, HubSpot)",
+          ],
+        },
+        CP: {
+          title: "Competitive Programming",
+          steps: [
+            "Master C++/Java/Python",
+            "Learn basic data structures",
+            "Understand time complexity",
+            "Solve beginner problems",
+            "Practice sorting & searching",
+            "Recursion & backtracking",
+            "Graphs & trees",
+            "DP & greedy algorithms",
+            "Take part in contests",
+            "Join platforms like Codeforces",
+          ],
+        },
+      };
 
-    const phaseData = {
-      "AI": {
-        title: "AI & Machine Learning",
-        steps: [
-          "Learn Python basics",
-          "Study statistics & linear algebra",
-          "Understand ML algorithms",
-          "Practice with NumPy & pandas",
-          "Master supervised learning",
-          "Work with neural networks",
-          "Use TensorFlow & PyTorch",
-          "Build end-to-end projects",
-          "Deploy ML models",
-          "Learn AI ethics & trends"
-        ]
-      },
-      "FullStack": {
-        title: "Full Stack Development",
-        steps: [
-          "Learn HTML, CSS, JavaScript",
-          "Build static websites",
-          "Learn React or Vue.js",
-          "Understand REST APIs",
-          "Backend with Node.js & Express",
-          "Use MongoDB or SQL",
-          "Authentication & sessions",
-          "Build full stack projects",
-          "Test & debug code",
-          "Deploy on cloud platforms"
-        ]
-      },
-      "DataAnalysis": {
-        title: "Data Analysis",
-        steps: [
-          "Understand data types",
-          "Work with Excel & CSVs",
-          "Use pandas & NumPy",
-          "Clean and preprocess data",
-          "Visualize with matplotlib/seaborn",
-          "Apply statistical methods",
-          "Explore datasets & trends",
-          "Build dashboards",
-          "Use SQL for queries",
-          "Present data insights"
-        ]
-      },
-      "Cybersecurity": {
-        title: "Cybersecurity",
-        steps: [
-          "Understand networks",
-          "Learn about vulnerabilities",
-          "Use firewalls & encryption",
-          "Practice ethical hacking",
-          "Understand malware types",
-          "Use tools like Wireshark",
-          "Explore cybersecurity laws",
-          "Simulate cyber attacks",
-          "Respond to threats",
-          "Certifications like CEH"
-        ]
-      },
-      "DevOps": {
-        title: "DevOps",
-        steps: [
-          "Learn version control (Git)",
-          "Understand CI/CD",
-          "Use Jenkins & GitHub Actions",
-          "Containerize with Docker",
-          "Use Kubernetes",
-          "Monitor performance",
-          "Handle logs and errors",
-          "Infrastructure as Code (IaC)",
-          "Automate deployments",
-          "Collaborate with teams"
-        ]
-      },
-      "Cloud": {
-        title: "Cloud Computing",
-        steps: [
-          "Understand cloud basics",
-          "Explore AWS, Azure, GCP",
-          "Use cloud storage",
-          "Deploy VMs",
-          "Use databases in cloud",
-          "Networking in cloud",
-          "Set up monitoring",
-          "Use CLI tools",
-          "Secure cloud apps",
-          "Get certified (e.g., AWS)"
-        ]
-      },
-      "UIUX": {
-        title: "UI/UX Design",
-        steps: [
-          "Understand design principles",
-          "Sketch wireframes",
-          "Use Figma or Adobe XD",
-          "Design user journeys",
-          "Create mockups",
-          "Work on color & typography",
-          "Test with users",
-          "Get feedback",
-          "Collaborate with devs",
-          "Build design systems"
-        ]
-      },
-      "Database": {
-        title: "Database Management",
-        steps: [
-          "Understand database types",
-          "Learn SQL",
-          "Use MySQL/PostgreSQL",
-          "Design schemas",
-          "Query optimization",
-          "Use NoSQL (MongoDB)",
-          "Backups and recovery",
-          "Work with big data",
-          "Data migration",
-          "Secure databases"
-        ]
-      },
-      "Marketing": {
-        title: "Digital Marketing",
-        steps: [
-          "Understand marketing funnels",
-          "Learn SEO basics",
-          "Use Google Ads",
-          "Work with content strategy",
-          "Understand analytics",
-          "Engage on social media",
-          "Run campaigns",
-          "Email marketing",
-          "Optimize conversions",
-          "Certifications (Google, HubSpot)"
-        ]
-      },
-      "CP": {
-        title: "Competitive Programming",
-        steps: [
-          "Master C++/Java/Python",
-          "Learn basic data structures",
-          "Understand time complexity",
-          "Solve beginner problems",
-          "Practice sorting & searching",
-          "Recursion & backtracking",
-          "Graphs & trees",
-          "DP & greedy algorithms",
-          "Take part in contests",
-          "Join platforms like Codeforces"
-        ]
-      }
-    };
+      const urlParams = new URLSearchParams(window.location.search);
+      const skillKey = urlParams.get("skill") || "AI";
+      const skill = phaseData[skillKey];
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const skillKey = urlParams.get("skill") || "AI";
-    const skill = phaseData[skillKey];
-
-    if (skill) {
-      document.getElementById("skillTitle").textContent = skill.title;
-      const container = document.getElementById("phaseContainer");
-      skill.steps.forEach((step, i) => {
-        const card = document.createElement("div");
-        card.className = "bg-white p-4 rounded-lg shadow-lg text-center flex flex-col items-center hover:scale-105 transition";
-        card.innerHTML = `
-          <div class="bg-blue-100 text-blue-600 w-12 h-12 flex items-center justify-center rounded-full text-lg font-bold mb-3">${i + 1}</div>
+      if (skill) {
+        document.getElementById("skillTitle").textContent = skill.title;
+        const container = document.getElementById("phaseContainer");
+        skill.steps.forEach((step, i) => {
+          const card = document.createElement("div");
+          card.className =
+            "bg-white p-4 rounded-lg shadow-lg text-center flex flex-col items-center hover:scale-105 transition";
+          card.innerHTML = `
+          <div class="bg-blue-100 text-blue-600 w-12 h-12 flex items-center justify-center rounded-full text-lg font-bold mb-3">${
+            i + 1
+          }</div>
           <p class="text-gray-700 font-medium">${step}</p>
         `;
-        container.appendChild(card);
-      });
-    } else {
-      document.getElementById("skillTitle").textContent = "Skill not found!";
-    }
-  </script>
-</body>
+          container.appendChild(card);
+        });
+      } else {
+        document.getElementById("skillTitle").textContent = "Skill not found!";
+      }
+    </script>
+  </body>
 </html>
