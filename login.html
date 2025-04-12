@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Auth | NEXT ROLE</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-blue-50 flex items-center justify-center min-h-screen">
 
@@ -12,22 +12,24 @@
     <h1 class="text-3xl font-bold text-center text-blue-700 mb-4">NEXT ROLE</h1>
     <h2 id="formTitle" class="text-xl font-semibold text-center text-gray-800 mb-6">Login</h2>
 
+    <!-- Auth Form -->
     <form id="authForm" class="space-y-4">
-      <input type="email" placeholder="Email" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
-      <input type="password" placeholder="Password" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="email" type="email" placeholder="Email" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input id="password" type="password" placeholder="Password" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
       <div class="text-right text-sm">
-        <a href="reset_password.html" class="text-blue-600 hover:underline">Forgot Password?</a>
-
-
+        <a href="#" id="forgotPasswordLink" class="text-blue-600 hover:underline">Forgot Password?</a>
       </div>
       <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 font-semibold">Login</button>
     </form>
 
+    <!-- Toggle Link -->
     <p id="toggleText" class="mt-4 text-center text-sm text-gray-600">
-      Don't have an account? <a href="#" onclick="toggleForm()" class="text-blue-600 font-medium hover:underline">Sign Up</a>
+      Don't have an account?
+      <a href="#" onclick="toggleForm()" class="text-blue-600 font-medium hover:underline">Sign Up</a>
     </p>
   </div>
 
+  <!-- Script -->
   <script>
     const formTitle = document.getElementById("formTitle");
     const authForm = document.getElementById("authForm");
@@ -37,28 +39,110 @@
 
     function toggleForm() {
       isLogin = !isLogin;
+
       if (!isLogin) {
         formTitle.textContent = "Sign Up";
         authForm.innerHTML = `
-          <input type="text" placeholder="Name" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
-          <input type="email" placeholder="Email" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
-          <input type="password" placeholder="Password" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input id="name" type="text" placeholder="Name" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input id="email" type="email" placeholder="Email" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input id="password" type="password" placeholder="Password" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
           <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 font-semibold">Sign Up</button>
         `;
         toggleText.innerHTML = `Already have an account? <a href="#" onclick="toggleForm()" class="text-blue-600 font-medium hover:underline">Login</a>`;
+
+        authForm.onsubmit = async function (e) {
+          e.preventDefault();
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+
+          try {
+            const res = await fetch("http://localhost:5000/api/register", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ name, email, password })
+            });
+
+            const data = await res.json();
+            if (res.ok) {
+              alert("Signup successful. Please login.");
+              toggleForm(); // back to login
+            } else {
+              alert(data.message || "Signup failed.");
+            }
+          } catch (err) {
+            alert("Error: " + err.message);
+          }
+        };
       } else {
         formTitle.textContent = "Login";
         authForm.innerHTML = `
-          <input type="email" placeholder="Email" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
-          <input type="password" placeholder="Password" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input id="email" type="email" placeholder="Email" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input id="password" type="password" placeholder="Password" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
           <div class="text-right text-sm">
-            <a href="#" onclick="alert('Redirect to forgot password page');" class="text-blue-600 hover:underline">Forgot Password?</a>
+            <a href="#" id="forgotPasswordLink" class="text-blue-600 hover:underline">Forgot Password?</a>
           </div>
           <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 font-semibold">Login</button>
         `;
         toggleText.innerHTML = `Don't have an account? <a href="#" onclick="toggleForm()" class="text-blue-600 font-medium hover:underline">Sign Up</a>`;
+        attachLoginHandler();
       }
     }
+
+    function attachLoginHandler() {
+      document.getElementById("authForm").onsubmit = async function (e) {
+        e.preventDefault();
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        try {
+          const res = await fetch("http://localhost:5000/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+          });
+
+          const data = await res.json();
+          if (res.ok) {
+            alert("Login successful.");
+            window.location.href = "dashbord.html";
+          } else {
+            alert(data.message || "Login failed.");
+          }
+        } catch (err) {
+          alert("Error: " + err.message);
+        }
+      };
+
+      const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+      if (forgotPasswordLink) {
+        forgotPasswordLink.addEventListener("click", async (e) => {
+          e.preventDefault();
+          const email = prompt("Enter your registered email:");
+          if (!email) return;
+
+          try {
+            const res = await fetch("http://localhost:5000/api/forgot-password", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email })
+            });
+
+            const data = await res.json();
+            if (res.ok) {
+              alert(data.message || "Reset link sent. Check your email.");
+            } else {
+              alert(data.message || "Something went wrong.");
+            }
+          } catch (err) {
+            alert("Error: " + err.message);
+          }
+        });
+      }
+    }
+
+    // Initial login handler
+    attachLoginHandler();
   </script>
 </body>
 </html>
