@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body class="bg-blue-50 min-h-screen flex flex-col md:flex-row font-sans">
 
   <!-- Sidebar -->
@@ -28,9 +30,10 @@
       <a href="job.html" class="flex items-center text-gray-700 hover:text-blue-600 p-2 rounded-lg hover:bg-blue-50">
         <i data-lucide="trending-up" class="w-5 h-5 mr-2"></i> Job Trends
       </a>
-      <a href="recommendation.html" class="flex items-center text-gray-700 hover:text-blue-600 p-2 rounded-lg hover:bg-blue-50">
-        <i data-lucide="thumbs-up" class="w-5 h-5 mr-2"></i> Recommendations
-      </a>
+      <a href="market.html" class="flex items-center text-gray-700 hover:text-blue-600 p-2 rounded-lg hover:bg-blue-50 transition">
+        <i data-lucide="bar-chart-3" class="w-5 h-5 mr-2"></i>
+        <span>Market</span>
+      </a>      
       <a href="profile.html" class="flex items-center text-gray-700 hover:text-blue-600 p-2 rounded-lg hover:bg-blue-50">
         <i data-lucide="user" class="w-5 h-5 mr-2"></i> Profile
       </a>
@@ -42,8 +45,13 @@
 
   <!-- Dashboard Content -->
   <main class="flex-1 p-6">
-    <div class="bg-indigo-600 text-white rounded-xl p-6 shadow-lg mb-8">
-      <h1 class="text-3xl font-semibold">Welcome back, John!</h1>
+    <div class="bg-indigo-600 text-white rounded-xl p-6 shadow-lg mb-8 relative">
+      <a href="chatbot.html" class="absolute top-4 right-4">
+        <div class="w-14 h-14 bg-white text-indigo-600 rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition-transform">
+          <i data-lucide="bot" class="w-8 h-8"></i>
+        </div>
+      </a>
+      <h1 class="text-3xl font-semibold">Welcome back, <span id="welcomeUsername">John Doe</span>!</h1>
       <p class="text-indigo-100 mt-1">Your personalized AI-enhanced learning dashboard</p>
     </div>
 
@@ -60,11 +68,20 @@
       <!-- User Details -->
       <div class="bg-white rounded-xl shadow p-5 hover:shadow-lg">
         <h2 class="text-lg font-semibold text-gray-800">User Details</h2>
-        <ul class="text-sm mt-2 text-gray-600 space-y-1">
-          <li><strong>Email:</strong> john@example.com</li>
-          <li><strong>Role:</strong> Frontend Developer</li>
-          <li><strong>Joined:</strong> Jan 2025</li>
-        </ul>
+        <div class="text-sm mt-2 text-gray-600">
+          <p><strong>Username:</strong> <span id="username">John Doe</span></p>
+          <p><strong>Email:</strong> <span id="email">john@example.com</span></p>
+          <p><strong>Role:</strong> <span id="role">Frontend Developer</span></p>
+          <p><strong>Joined:</strong> <span id="joined">Jan 2025</span></p>
+        </div>
+        <button onclick="editUserDetails()" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">Edit Details</button>
+        <div id="userEditForm" class="hidden mt-4">
+          <input type="text" id="editUsername" placeholder="Enter username" class="border rounded p-2 w-full mb-2" />
+          <input type="email" id="editEmail" placeholder="Enter email" class="border rounded p-2 w-full mb-2" />
+          <input type="text" id="editRole" placeholder="Enter role" class="border rounded p-2 w-full mb-2" />
+          <input type="month" id="editJoined" class="border rounded p-2 w-full mb-2" />
+          <button onclick="saveUserDetails()" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">Save</button>
+        </div>
       </div>
 
       <!-- Suggested Step -->
@@ -77,7 +94,7 @@
       <div class="bg-white rounded-xl shadow p-5 hover:shadow-lg relative">
         <h2 class="text-lg font-semibold text-gray-800 flex justify-between items-center">
           Achievements
-          <button class="text-indigo-600 text-sm font-medium hover:underline" onclick="addItem('achievement')">+ Add</button>
+          <button class="text-indigo-600 text-sm font-medium" onclick="addItem('achievement')">+ Add</button>
         </h2>
         <ul class="text-sm mt-2 text-gray-600 space-y-1" id="achievementsList">
           <li>🏆 HTML & CSS Mastery</li>
@@ -90,7 +107,7 @@
       <div class="bg-white rounded-xl shadow p-5 hover:shadow-lg relative">
         <h2 class="text-lg font-semibold text-gray-800 flex justify-between items-center">
           Skills in Progress
-          <button class="text-indigo-600 text-sm font-medium hover:underline" onclick="addItem('skills')">+ Add</button>
+          <button class="text-indigo-600 text-sm font-medium" onclick="addItem('skills')">+ Add</button>
         </h2>
         <ul class="text-sm mt-2 text-gray-600 space-y-1" id="skillsList">
           <li>🛠 JavaScript Basics</li>
@@ -103,10 +120,8 @@
       <div class="bg-white rounded-xl shadow p-5 hover:shadow-lg relative">
         <h2 class="text-lg font-semibold text-gray-800 flex justify-between items-center">
           Recent Activity
-          <button class="flex items-center text-indigo-600 text-sm font-medium hover:underline" onclick="openCalendar()">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 4h10M5 11h14M5 15h14M5 19h14" />
-            </svg>
+          <button class="flex items-center text-indigo-600 text-sm font-medium" onclick="openCalendar()">
+            <i data-lucide="calendar" class="w-4 h-4 mr-1"></i>
             Add
           </button>
         </h2>
@@ -117,11 +132,6 @@
         </ul>
       </div>
     </div>
-
-    <!-- Footer -->
-    <footer class="mt-12 text-center text-sm text-gray-500">
-      © 2025 NEXT ROLE. All rights reserved.
-    </footer>
   </main>
 
   <!-- Calendar Modal -->
@@ -137,16 +147,49 @@
     </div>
   </div>
 
+  <!-- Scripts -->
   <script>
     lucide.createIcons();
 
+    let user = {
+      username: 'John Doe',
+      email: 'john@example.com',
+      role: 'Frontend Developer',
+      joined: 'Jan 2025'
+    };
+
+    function editUserDetails() {
+      const userEditForm = document.getElementById("userEditForm");
+      userEditForm.classList.remove("hidden");
+
+      document.getElementById("editUsername").value = user.username;
+      document.getElementById("editEmail").value = user.email;
+      document.getElementById("editRole").value = user.role;
+      document.getElementById("editJoined").value = user.joined;
+    }
+
+    function saveUserDetails() {
+      user.username = document.getElementById("editUsername").value;
+      user.email = document.getElementById("editEmail").value;
+      user.role = document.getElementById("editRole").value;
+      user.joined = document.getElementById("editJoined").value;
+
+      document.getElementById("username").textContent = user.username;
+      document.getElementById("email").textContent = user.email;
+      document.getElementById("role").textContent = user.role;
+      document.getElementById("joined").textContent = user.joined;
+      document.getElementById("welcomeUsername").textContent = user.username;
+
+      document.getElementById("userEditForm").classList.add("hidden");
+    }
+
     function addItem(type) {
-      const item = prompt(`Add a new ${type === 'achievement' ? 'achievement' : 'skill'}:`);
-      if (item) {
-        const ul = document.getElementById(type === 'achievement' ? 'achievementsList' : 'skillsList');
+      const input = prompt(`Add new ${type === 'skills' ? 'skill' : 'achievement'}:`);
+      if (input) {
+        const list = document.getElementById(type === 'skills' ? 'skillsList' : 'achievementsList');
         const li = document.createElement('li');
-        li.textContent = type === 'achievement' ? `🏅 ${item}` : `📌 ${item}`;
-        ul.appendChild(li);
+        li.textContent = input;
+        list.appendChild(li);
       }
     }
 
@@ -163,20 +206,16 @@
       const desc = document.getElementById("activityDesc").value;
 
       if (date && desc) {
-        const ul = document.getElementById("activityList");
+        const activityList = document.getElementById("activityList");
         const li = document.createElement("li");
-        const formattedDate = new Date(date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
-        li.textContent = `🗓 ${formattedDate} – ${desc}`;
-        ul.appendChild(li);
-
+        li.textContent = `🗓 ${new Date(date).toLocaleDateString('en-GB')} – ${desc}`;
+        activityList.appendChild(li);
         closeCalendar();
         document.getElementById("activityDate").value = '';
         document.getElementById("activityDesc").value = '';
-      } else {
-        alert("Please fill in both date and description.");
       }
     }
   </script>
 </body>
-</html>
 
+</html>

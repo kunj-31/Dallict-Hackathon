@@ -49,31 +49,7 @@
           <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 font-semibold">Sign Up</button>
         `;
         toggleText.innerHTML = `Already have an account? <a href="#" onclick="toggleForm()" class="text-blue-600 font-medium hover:underline">Login</a>`;
-
-        authForm.onsubmit = async function (e) {
-          e.preventDefault();
-          const name = document.getElementById("name").value;
-          const email = document.getElementById("email").value;
-          const password = document.getElementById("password").value;
-
-          try {
-            const res = await fetch("http://localhost:5000/api/register", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ name, email, password })
-            });
-
-            const data = await res.json();
-            if (res.ok) {
-              alert("Signup successful. Please login.");
-              toggleForm(); // back to login
-            } else {
-              alert(data.message || "Signup failed.");
-            }
-          } catch (err) {
-            alert("Error: " + err.message);
-          }
-        };
+        handleSignup();
       } else {
         formTitle.textContent = "Login";
         authForm.innerHTML = `
@@ -85,12 +61,12 @@
           <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 font-semibold">Login</button>
         `;
         toggleText.innerHTML = `Don't have an account? <a href="#" onclick="toggleForm()" class="text-blue-600 font-medium hover:underline">Sign Up</a>`;
-        attachLoginHandler();
+        handleLogin();
       }
     }
 
-    function attachLoginHandler() {
-      document.getElementById("authForm").onsubmit = async function (e) {
+    function handleLogin() {
+      authForm.onsubmit = async function (e) {
         e.preventDefault();
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
@@ -114,6 +90,7 @@
         }
       };
 
+      // Forgot Password
       const forgotPasswordLink = document.getElementById("forgotPasswordLink");
       if (forgotPasswordLink) {
         forgotPasswordLink.addEventListener("click", async (e) => {
@@ -132,7 +109,7 @@
             if (res.ok) {
               alert(data.message || "Reset link sent. Check your email.");
             } else {
-              alert(data.message || "Something went wrong.");
+              alert(data.message || "Failed to send reset link.");
             }
           } catch (err) {
             alert("Error: " + err.message);
@@ -141,8 +118,35 @@
       }
     }
 
-    // Initial login handler
-    attachLoginHandler();
+    function handleSignup() {
+      authForm.onsubmit = async function (e) {
+        e.preventDefault();
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        try {
+          const res = await fetch("http://localhost:5000/api/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, password })
+          });
+
+          const data = await res.json();
+          if (res.ok) {
+            alert("Signup successful. Please login.");
+            toggleForm();
+          } else {
+            alert(data.message || "Signup failed.");
+          }
+        } catch (err) {
+          alert("Error: " + err.message);
+        }
+      };
+    }
+
+    // Initial login setup
+    handleLogin();
   </script>
 </body>
 </html>

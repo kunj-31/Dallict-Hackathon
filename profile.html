@@ -2,174 +2,319 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>User Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Username| Data Analyst</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-gradient-to-tr from-blue-50 to-indigo-100 min-h-screen font-sans">
 
 <!-- Profile Card -->
-<div class="max-w-4xl mx-auto mt-10 bg-white shadow-lg rounded-2xl overflow-hidden">
+<div class="max-w-4xl mx-auto mt-10 bg-white shadow-xl rounded-2xl overflow-hidden">
   <div class="p-6 sm:flex sm:items-center">
-    <img id="profileImage" src="https://i.pravatar.cc/150?img=68" alt="Profile" class="w-32 h-32 rounded-full border-4 border-blue-500 shadow-md mx-auto sm:mx-0 sm:mr-6" />
-    <div class="text-center sm:text-left">
-      <h2 id="profileName" class="text-3xl font-bold text-gray-800">New User</h2>
-      <p id="profileRole" class="text-sm text-gray-500">Beginner</p>
+    <div class="relative group w-32 h-32 mx-auto sm:mx-0 sm:mr-6">
+      <img id="profileImage" src="https://i.pravatar.cc/150?img=32" alt="Alex Johnson" class="w-32 h-32 rounded-full border-4 border-blue-500 shadow-md object-cover" />
+      <label class="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full cursor-pointer hover:bg-blue-700 transition-all">
+        <input type="file" accept="image/*" id="editAvatarUpload" class="hidden" onchange="handleAvatarUpload(event)" />
+        <i class="fas fa-camera"></i>
+      </label>
+    </div>
+    <div class="text-center sm:text-left mt-4 sm:mt-0">
+      <h2 id="profileName" class="text-3xl font-bold text-gray-800">Username</h2>
+      <p id="profileRole" class="text-lg text-blue-600 font-medium">Data Analyst</p>
+      <div class="flex justify-center sm:justify-start mt-3 space-x-2">
+        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">
+          <i class="fas fa-star mr-1"></i> Pro Member
+        </span>
+        <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-medium">
+          <i class="fas fa-check-circle mr-1"></i> Verified
+        </span>
+      </div>
       <div class="mt-4">
-        <button onclick="openModal()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Edit Profile</button>
+        <button onclick="openModal()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-all flex items-center">
+          <i class="fas fa-edit mr-2"></i> Edit Profile
+        </button>
       </div>
     </div>
   </div>
 
-  <hr class="my-4" />
+  <hr class="my-4 border-gray-200" />
 
   <div class="px-6 pb-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
     <div>
-      <h3 class="text-lg font-semibold text-gray-700 mb-2">Skills</h3>
-      <ul id="skillsList" class="space-y-2"></ul>
+      <h3 class="text-lg font-semibold text-gray-700 mb-3 flex items-center">
+        <i class="fas fa-code mr-2 text-blue-500"></i> Skills
+      </h3>
+      <div id="skillsList" class="flex flex-wrap">
+        <span class="skill-tag"><i class="fab fa-python mr-1"></i> Python</span>
+        <span class="skill-tag"><i class="fas fa-database mr-1"></i> SQL</span>
+        <span class="skill-tag">Tableau</span>
+        <span class="skill-tag">Machine Learning</span>
+        <span class="skill-tag">Excel</span>
+        <span class="skill-tag">Power BI</span>
+        <span class="skill-tag">R</span>
+      </div>
     </div>
     <div>
-      <h3 class="text-lg font-semibold text-gray-700 mb-2">Profile Stats</h3>
-      <ul class="space-y-2">
-        <li id="joinedDate"><strong>Joined:</strong> Apr 2025</li>
-        <li><strong>Roadmap:</strong> Data Analyst</li>
-        <li id="completedSteps"><strong>Completed:</strong> 0 / 10</li>
+      <h3 class="text-lg font-semibold text-gray-700 mb-3 flex items-center">
+        <i class="fas fa-chart-line mr-2 text-blue-500"></i> Profile Stats
+      </h3>
+      <ul class="space-y-3">
+        <li class="flex items-center"><i class="fas fa-calendar-alt mr-3 text-gray-500 w-5"></i> <strong class="w-24">Joined:</strong> Apr 2025</li>
+        <li class="flex items-center"><i class="fas fa-map-marked-alt mr-3 text-gray-500 w-5"></i> <strong class="w-24">Roadmap:</strong> Data Analyst</li>
+        <li class="flex items-center">
+          <i class="fas fa-tasks mr-3 text-gray-500 w-5"></i>
+          <strong class="w-24">Progress:</strong>
+          <div class="flex-1 ml-2">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 40%"></div>
+            </div>
+            <span class="text-xs text-gray-600">4/10 steps completed</span>
+          </div>
+        </li>
+        <li class="flex items-center">
+          <i class="fas fa-file-pdf mr-3 text-gray-500 w-5"></i>
+          <strong class="w-24">Resume:</strong>
+          <span id="resumeFileName" class="flex-1 truncate">Alex_Johnson_Resume.pdf</span>
+          <button onclick="deleteResume()" class="text-red-500 hover:text-red-700 ml-2">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </li>
       </ul>
+      <div class="mt-3">
+        <label class="inline-block bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-lg cursor-pointer transition-all">
+          <i class="fas fa-upload mr-1"></i> Upload Resume
+          <input type="file" id="resumeInput" accept="application/pdf" class="hidden" onchange="uploadResume(event)" />
+        </label>
+      </div>
     </div>
+  </div>
+
+  <div class="px-6 pb-6">
+    <h3 class="text-lg font-semibold text-gray-700 mb-3 flex items-center">
+      <i class="fas fa-share-alt mr-2 text-blue-500"></i> Connect With Me
+    </h3>
+    <ul class="space-y-2" id="socialLinks">
+      <li>
+        <a id="linkedin" href="https://www.linkedin.com/in/alex-johnson" target="_blank" class="flex items-center text-blue-700 hover:text-blue-900">
+          <i class="fab fa-linkedin mr-3 w-5 text-blue-600"></i> linkedin.com/in/alex-johnson
+        </a>
+      </li>
+      <li>
+        <a id="github" href="https://github.com/alexjohnson" target="_blank" class="flex items-center text-gray-800 hover:text-black">
+          <i class="fab fa-github mr-3 w-5"></i> github.com/alexjohnson
+        </a>
+      </li>
+      <li>
+        <a id="twitter" href="https://twitter.com/alexjohnson" target="_blank" class="flex items-center text-blue-400 hover:text-blue-500">
+          <i class="fab fa-twitter mr-3 w-5"></i> twitter.com/alexjohnson
+        </a>
+      </li>
+    </ul>
   </div>
 </div>
 
 <!-- Edit Modal -->
-<div id="editModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
-  <div class="bg-white p-6 rounded-lg w-full max-w-md shadow-xl">
-    <h2 class="text-xl font-bold mb-4">Edit Profile</h2>
-    
-    <label class="block mb-2 text-sm font-medium">Name:</label>
-    <input id="editName" type="text" class="w-full p-2 border rounded mb-3" placeholder="Enter name" />
-    
-    <label class="block mb-2 text-sm font-medium">Role:</label>
-    <input id="editRole" type="text" class="w-full p-2 border rounded mb-3" placeholder="Enter role" />
-    
-    <label class="block mb-2 text-sm font-medium">Avatar URL:</label>
-    <input id="editAvatar" type="text" class="w-full p-2 border rounded mb-4" placeholder="https://..." />
-
-    <label class="block mb-2 text-sm font-medium">Skills:</label>
-    <div id="skillInputs" class="space-y-2 mb-4"></div>
-
-    <div class="flex justify-end space-x-2">
-      <button onclick="closeModal()" class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400">Cancel</button>
-      <button onclick="saveProfile()" class="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700">Save</button>
+<div id="editModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50 p-4">
+  <div class="bg-white p-6 rounded-lg w-full max-w-md shadow-xl animate-popup">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-bold text-gray-800">Edit Profile</h2>
+      <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+        <i class="fas fa-times"></i>
+      </button>
     </div>
+    <form id="editProfileForm" class="space-y-4">
+      <div>
+        <label for="editProfileName" class="block text-gray-700 mb-1 font-medium">Name</label>
+        <input type="text" id="editProfileName" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Your name" />
+      </div>
+
+      <div>
+        <label for="editProfileRole" class="block text-gray-700 mb-1 font-medium">Role</label>
+        <input type="text" id="editProfileRole" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Your professional role" />
+      </div>
+
+      <div>
+        <label for="editSkills" class="block text-gray-700 mb-1 font-medium">Skills</label>
+        <textarea id="editSkills" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" placeholder="Python, SQL, Data Visualization..."></textarea>
+        <p class="text-xs text-gray-500 mt-1">Separate skills with commas (max 25)</p>
+      </div>
+
+      <div class="pt-2">
+        <h3 class="font-medium text-gray-700 mb-2">Social Links</h3>
+        <div class="space-y-3">
+          <div class="flex items-center">
+            <i class="fab fa-linkedin mr-2 text-blue-600 w-5"></i>
+            <input type="url" id="editLinkedIn" class="flex-1 p-2 border border-gray-300 rounded-md" placeholder="LinkedIn URL" />
+          </div>
+          <div class="flex items-center">
+            <i class="fab fa-github mr-2 text-gray-800 w-5"></i>
+            <input type="url" id="editGitHub" class="flex-1 p-2 border border-gray-300 rounded-md" placeholder="GitHub URL" />
+          </div>
+          <div class="flex items-center">
+            <i class="fab fa-twitter mr-2 text-blue-400 w-5"></i>
+            <input type="url" id="editTwitter" class="flex-1 p-2 border border-gray-300 rounded-md" placeholder="Twitter URL" />
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between pt-4">
+        <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg transition-all">
+          Cancel
+        </button>
+        <button type="submit" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all flex items-center">
+          <i class="fas fa-save mr-2"></i> Save Changes
+        </button>
+      </div>
+    </form>
   </div>
 </div>
 
-<!-- JavaScript -->
 <script>
-  let userData = {
-    name: "New User",
-    role: "Beginner",
-    avatar: "https://i.pravatar.cc/150?img=68",
-    joinedDate: new Date().toLocaleString('default', { month: 'short', year: 'numeric' }),
-    completedSteps: 0,
-    totalSteps: 10,
-    skills: {
-      Python: 0,
-      SQL: 0,
-      Excel: 0
+// Initialize with sample data
+document.addEventListener('DOMContentLoaded', function() {
+  // Set initial values
+  document.getElementById('profileName').textContent = 'Alex Johnson';
+  document.getElementById('profileRole').textContent = 'Data Analyst';
+  document.getElementById('resumeFileName').textContent = 'Alex_Johnson_Resume.pdf';
+  
+  // Pre-fill edit modal with current data when opened
+  document.getElementById('editProfileForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    saveProfileChanges();
+  });
+});
+
+function openModal() {
+  document.getElementById("editModal").classList.remove("hidden");
+  document.body.style.overflow = 'hidden';
+
+  // Pre-fill the form with current data
+  document.getElementById("editProfileName").value = document.getElementById("profileName").textContent;
+  document.getElementById("editProfileRole").value = document.getElementById("profileRole").textContent;
+  
+  // Skills
+  const skills = Array.from(document.getElementById("skillsList").children)
+    .map(span => span.textContent.trim());
+  document.getElementById("editSkills").value = skills.join(", ");
+
+  // Social Links
+  document.getElementById("editLinkedIn").value = document.getElementById("linkedin") ? document.getElementById("linkedin").href : "";
+  document.getElementById("editGitHub").value = document.getElementById("github") ? document.getElementById("github").href : "";
+  document.getElementById("editTwitter").value = document.getElementById("twitter") ? document.getElementById("twitter").href : "";
+}
+
+function closeModal() {
+  document.getElementById("editModal").classList.add("hidden");
+  document.body.style.overflow = 'auto';
+}
+
+function handleAvatarUpload(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById("profileImage").src = e.target.result;
+      // Show success message
+      showToast('Profile picture updated successfully!', 'success');
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+function uploadResume(event) {
+  const file = event.target.files[0];
+  if (file) {
+    if (file.type === "application/pdf") {
+      document.getElementById("resumeFileName").textContent = file.name;
+      showToast('Resume uploaded successfully!', 'success');
+    } else {
+      showToast('Please upload a PDF file only', 'error');
+      event.target.value = null;
     }
-  };
+  }
+}
 
-  window.onload = () => {
-    const saved = localStorage.getItem('userProfile');
-    if (saved) {
-      userData = JSON.parse(saved);
+function deleteResume() {
+  if (confirm('Are you sure you want to delete your resume?')) {
+    document.getElementById("resumeFileName").textContent = "Not uploaded";
+    document.getElementById("resumeInput").value = null;
+    showToast('Resume deleted', 'info');
+  }
+}
+
+function saveProfileChanges() {
+  // Update name and role
+  document.getElementById("profileName").textContent = document.getElementById("editProfileName").value;
+  document.getElementById("profileRole").textContent = document.getElementById("editProfileRole").value;
+
+  // Update skills
+  const skillsInput = document.getElementById("editSkills").value;
+  const skills = skillsInput.split(",")
+    .map(skill => skill.trim())
+    .filter(skill => skill.length > 0)
+    .slice(0, 25);
+  
+  const skillsList = document.getElementById("skillsList");
+  skillsList.innerHTML = "";
+  skills.forEach(skill => {
+    const span = document.createElement("span");
+    span.className = "skill-tag";
+    // Add icons for known skills
+    if (skill.toLowerCase().includes('python')) {
+      span.innerHTML = `<i class="fab fa-python mr-1"></i> ${skill}`;
+    } else if (skill.toLowerCase().includes('sql')) {
+      span.innerHTML = `<i class="fas fa-database mr-1"></i> ${skill}`;
+    } else {
+      span.textContent = skill;
     }
-    loadProfile();
-  };
+    skillsList.appendChild(span);
+  });
 
-  function loadProfile() {
-    document.getElementById('profileName').innerText = userData.name;
-    document.getElementById('profileRole').innerText = userData.role;
-    document.getElementById('profileImage').src = userData.avatar;
-    document.getElementById('joinedDate').innerHTML = `<strong>Joined:</strong> ${userData.joinedDate}`;
-    document.getElementById('completedSteps').innerHTML = `<strong>Completed:</strong> ${userData.completedSteps} / ${userData.totalSteps}`;
+  // Update social links
+  updateSocialLink("linkedin", document.getElementById("editLinkedIn").value, "fab fa-linkedin", "text-blue-600");
+  updateSocialLink("github", document.getElementById("editGitHub").value, "fab fa-github", "text-gray-800");
+  updateSocialLink("twitter", document.getElementById("editTwitter").value, "fab fa-twitter", "text-blue-400");
 
-    const skillsList = document.getElementById('skillsList');
-    skillsList.innerHTML = '';
-    for (const skill of Object.keys(userData.skills)) {
-      skillsList.innerHTML += `
-        <li class="flex justify-between">
-          <span>${skill}</span>
-        </li>`;
+  showToast('Profile updated successfully!', 'success');
+  closeModal();
+}
+
+function updateSocialLink(id, url, iconClass, iconColorClass) {
+  const linkElement = document.getElementById(id);
+  if (url && url !== "#" && url.trim() !== "") {
+    linkElement.href = url;
+    // Extract username from URL for display
+    let displayText = url;
+    try {
+      const urlObj = new URL(url);
+      displayText = urlObj.hostname + urlObj.pathname;
+      displayText = displayText.replace('www.', '').replace('https://', '').replace('http://', '');
+    } catch(e) {
+      console.log("Invalid URL format");
     }
+    linkElement.innerHTML = `<i class="${iconClass} ${iconColorClass} mr-3 w-5"></i> ${displayText}`;
+  } else {
+    linkElement.href = "#";
+    linkElement.innerHTML = `<i class="${iconClass} text-gray-400 mr-3 w-5"></i> ${id.charAt(0).toUpperCase() + id.slice(1)}`;
   }
+}
 
-  function openModal() {
-    document.getElementById('editModal').classList.remove('hidden');
-    document.getElementById('editName').value = userData.name;
-    document.getElementById('editRole').value = userData.role;
-    document.getElementById('editAvatar').value = userData.avatar;
-    renderSkillInputs();
-  }
-
-  function closeModal() {
-    document.getElementById('editModal').classList.add('hidden');
-  }
-
-  function renderSkillInputs() {
-    const skillInputs = document.getElementById('skillInputs');
-    skillInputs.innerHTML = '';
-
-    for (const skill of Object.keys(userData.skills)) {
-      skillInputs.innerHTML += `
-        <div class="flex gap-2">
-          <input type="text" class="p-2 border rounded w-full" value="${skill}" data-skill-name />
-          <button type="button" onclick="removeSkill('${skill}')" class="text-red-600 font-bold">✖</button>
-        </div>`;
-    }
-
-    skillInputs.innerHTML += `
-      <p class="text-sm text-gray-500">Skills: ${Object.keys(userData.skills).length} / 25</p>
-      <button type="button" onclick="addSkill()" class="mt-2 px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">+ Add Skill</button>
-    `;
-  }
-
-  function addSkill() {
-    const currentCount = Object.keys(userData.skills).length;
-    if (currentCount >= 25) {
-      alert("You can only add up to 25 skills.");
-      return;
-    }
-
-    const uniqueName = `Skill${Date.now()}`;
-    userData.skills[uniqueName] = 0;
-    renderSkillInputs();
-  }
-
-  function removeSkill(skillName) {
-    delete userData.skills[skillName];
-    renderSkillInputs();
-  }
-
-  function saveProfile() {
-    userData.name = document.getElementById('editName').value || "New User";
-    userData.role = document.getElementById('editRole').value || "Beginner";
-    userData.avatar = document.getElementById('editAvatar').value || "https://i.pravatar.cc/150?img=68";
-
-    const skillInputs = document.querySelectorAll('[data-skill-name]');
-    const newSkills = {};
-
-    skillInputs.forEach((input, i) => {
-      const name = input.value.trim() || `Skill${i}`;
-      newSkills[name] = 0; // fixed score of 0
-    });
-
-    userData.skills = newSkills;
-
-    localStorage.setItem('userProfile', JSON.stringify(userData));
-    closeModal();
-    loadProfile();
-  }
+function showToast(message, type) {
+  const toast = document.createElement('div');
+  toast.className = `fixed bottom-4 right-4 px-4 py-2 rounded-md shadow-lg text-white ${
+    type === 'success' ? 'bg-green-500' : 
+    type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+  }`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  
+  setTimeout(() => {
+    toast.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
 </script>
 
 </body>

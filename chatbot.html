@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Assistant | NEXT ROLE</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="bg-gray-100 h-screen flex flex-col">
+  <!-- Header with Back Button -->
+  <header class="flex items-center justify-between p-4 bg-white shadow">
+    <h1 class="text-xl font-semibold text-gray-800">NEXT ROLE AI Assistant</h1>
+    <a href="dashbord.html" class="flex items-center text-indigo-600 hover:text-indigo-800 text-sm font-medium">
+      <i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i> Back to Dashboard
+    </a>
+  </header>
+
+  <!-- Chatbot Iframe -->
+  <main class="flex-grow p-4">
+    <iframe
+      src="https://www.chatbase.co/chatbot-iframe/aNPhOIEMoPK3e-Sm46wXU"
+      class="w-full h-full border rounded-md"
+      style="min-height: 80vh;"></iframe>
+  </main>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+
+</html>
