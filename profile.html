@@ -3,44 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Professional Profile | NEXT ROLE</title>
+  <title>Vivek Maheshwari | Web Developer</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+   
     .animate-popup {
-      animation: fadeIn 0.3s ease-out forwards;
+      animation: pop 0.3s ease-out;
+    }
+    @keyframes pop {
+      0% {
+        transform: scale(0.95);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
   </style>
 </head>
-<body class="bg-gradient-to-tr from-blue-50 to-indigo-100 min-h-screen font-sans">
+<body class="bg-gradient-to-tr from-indigo-50 to-blue-100 min-h-screen font-sans">
 
 <!-- Profile Card -->
-<div class="max-w-4xl mx-auto mt-10 bg-white shadow-xl rounded-2xl overflow-hidden">
+<div class="max-w-4xl mx-auto mt-10 bg-white shadow-2xl rounded-2xl overflow-hidden">
   <div class="p-6 sm:flex sm:items-center">
-    <div class="relative group w-32 h-32 mx-auto sm:mx-0 sm:mr-6">
-      <img id="profileImage" src="https://i.pravatar.cc/150?img=32" alt="Profile" class="w-32 h-32 rounded-full border-4 border-blue-500 shadow-md object-cover" />
-      <label class="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full cursor-pointer hover:bg-blue-700 transition-all">
-        <input type="file" accept="image/*" id="editAvatarUpload" class="hidden" onchange="handleAvatarUpload(event)" />
-        <i class="fas fa-camera"></i>
-      </label>
+    <div class="w-32 h-32 mx-auto sm:mx-0 sm:mr-6 relative group">
+      <img src="https://i.pravatar.cc/150?img=32" alt="Vivek Maheshwari" class="w-32 h-32 rounded-full border-4 border-blue-600 object-cover shadow-md" />
     </div>
     <div class="text-center sm:text-left mt-4 sm:mt-0">
-      <h2 id="profileName" class="text-3xl font-bold text-gray-800">Your Name</h2>
-      <p id="profileRole" class="text-lg text-blue-600 font-medium">Your Profession</p>
+      <h2 class="text-3xl font-bold text-gray-800">Vivek Maheshwari</h2>
+      <p class="text-lg text-indigo-600 font-medium">Web Developer</p>
       <div class="flex justify-center sm:justify-start mt-3 space-x-2">
         <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">
           <i class="fas fa-star mr-1"></i> Member
         </span>
-      </div>
-      <div class="mt-4">
-        <button onclick="openModal()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-all flex items-center">
-          <i class="fas fa-edit mr-2"></i> Edit Profile
-        </button>
+        <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-medium">
+          <i class="fas fa-check-circle mr-1"></i> Verified
+        </span>
       </div>
     </div>
   </div>
@@ -50,416 +50,61 @@
   <div class="px-6 pb-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
     <div>
       <h3 class="text-lg font-semibold text-gray-700 mb-3 flex items-center">
-        <i class="fas fa-code mr-2 text-blue-500"></i> Skills
+        <i class="fas fa-code mr-2 text-indigo-500"></i> Skills
       </h3>
-      <div id="skillsList" class="flex flex-wrap">
-        <!-- Skills will be added dynamically -->
+      <div class="flex flex-wrap">
+        <span class="skill-tag"><i class="fab fa-html5 mr-2"></i> HTML</span>
+        <span class="skill-tag"><i class="fab fa-css3-alt mr-2"></i> CSS</span>
+        <span class="skill-tag"><i class="fab fa-js-square mr-2"></i> JavaScript</span>
+        <span class="skill-tag"><i class="fab fa-react mr-2"></i> React</span>
+        <span class="skill-tag"><i class="fab fa-node-js mr-2"></i> Node.js</span>
+        <span class="skill-tag"><i class="fas fa-database mr-2"></i> MongoDB</span>
+        <span class="skill-tag"><i class="fab fa-github mr-2"></i> GitHub</span>
       </div>
     </div>
+
     <div>
       <h3 class="text-lg font-semibold text-gray-700 mb-3 flex items-center">
-        <i class="fas fa-chart-line mr-2 text-blue-500"></i> Profile Stats
+        <i class="fas fa-chart-line mr-2 text-indigo-500"></i> Stats
       </h3>
       <ul class="space-y-3">
-        <li class="flex items-center"><i class="fas fa-calendar-alt mr-3 text-gray-500 w-5"></i> <strong class="w-24">Joined:</strong> <span id="joinDate">Just now</span></li>
-        <li class="flex items-center"><i class="fas fa-map-marked-alt mr-3 text-gray-500 w-5"></i> <strong class="w-24">Roadmap:</strong> <span id="roadmap">Select a path</span></li>
+        <li class="flex items-center"><i class="fas fa-calendar-alt mr-3 text-gray-500 w-5"></i><strong class="w-24">Joined:</strong> Apr 2025</li>
+        <li class="flex items-center"><i class="fas fa-code-branch mr-3 text-gray-500 w-5"></i><strong class="w-24">Path:</strong> Web Dev</li>
         <li class="flex items-center">
           <i class="fas fa-tasks mr-3 text-gray-500 w-5"></i>
           <strong class="w-24">Progress:</strong>
           <div class="flex-1 ml-2">
-            <div class="progress-bar">
-              <div id="progressFill" class="progress-fill" style="width: 0%"></div>
-            </div>
-            <span id="progressText" class="text-xs text-gray-600">0/5 steps completed</span>
+            <div class="progress-bar"><div class="progress-fill" style="width: 50%"></div></div>
+            <span class="text-xs text-gray-600">5/10 modules completed</span>
           </div>
         </li>
-        <li class="flex items-center">
-          <i class="fas fa-file-pdf mr-3 text-gray-500 w-5"></i>
-          <strong class="w-24">Resume:</strong>
-          <span id="resumeFileName" class="flex-1 truncate">Not uploaded</span>
-          <button onclick="deleteResume()" class="text-red-500 hover:text-red-700 ml-2">
-            <i class="fas fa-trash-alt"></i>
-          </button>
-        </li>
       </ul>
-      <div class="mt-3">
-        <label class="inline-block bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-lg cursor-pointer transition-all">
-          <i class="fas fa-upload mr-1"></i> Upload Resume
-          <input type="file" id="resumeInput" accept="application/pdf" class="hidden" onchange="uploadResume(event)" />
-        </label>
-      </div>
     </div>
   </div>
 
   <div class="px-6 pb-6">
     <h3 class="text-lg font-semibold text-gray-700 mb-3 flex items-center">
-      <i class="fas fa-share-alt mr-2 text-blue-500"></i> Connect With Me
+      <i class="fas fa-share-alt mr-2 text-indigo-500"></i> Connect With Me
     </h3>
-    <ul class="space-y-2" id="socialLinks">
+    <ul class="space-y-2">
       <li>
-        <a id="linkedin" href="#" class="flex items-center text-blue-700 hover:text-blue-900">
-          <i class="fab fa-linkedin mr-3 w-5 text-blue-600"></i> LinkedIn
+        <a href="https://www.linkedin.com/in/vivekmaheshwari" target="_blank" class="flex items-center text-blue-700 hover:text-blue-900">
+          <i class="fab fa-linkedin mr-3 w-5 text-blue-600"></i> linkedin.com/in/vivekmaheshwari
         </a>
       </li>
       <li>
-        <a id="github" href="#" class="flex items-center text-gray-800 hover:text-black">
-          <i class="fab fa-github mr-3 w-5"></i> GitHub
+        <a href="https://github.com/vivekmaheshwari" target="_blank" class="flex items-center text-gray-800 hover:text-black">
+          <i class="fab fa-github mr-3 w-5"></i> github.com/vivekmaheshwari
         </a>
       </li>
       <li>
-        <a id="twitter" href="#" class="flex items-center text-blue-400 hover:text-blue-500">
-          <i class="fab fa-twitter mr-3 w-5"></i> Twitter
+        <a href="https://twitter.com/vivekmahesh_" target="_blank" class="flex items-center text-blue-400 hover:text-blue-500">
+          <i class="fab fa-twitter mr-3 w-5"></i> twitter.com/vivekmahesh_
         </a>
       </li>
     </ul>
   </div>
 </div>
 
-<!-- Edit Modal -->
-<div id="editModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50 p-4">
-  <div class="bg-white p-6 rounded-lg w-full max-w-md shadow-xl animate-popup">
-    <div class="flex justify-between items-center mb-4">
-      <h2 class="text-xl font-bold text-gray-800">Edit Profile</h2>
-      <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-    <form id="editProfileForm" class="space-y-4">
-      <div>
-        <label for="editProfileName" class="block text-gray-700 mb-1 font-medium">Name</label>
-        <input type="text" id="editProfileName" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Your name" />
-      </div>
-
-      <div>
-        <label for="editProfileRole" class="block text-gray-700 mb-1 font-medium">Role</label>
-        <input type="text" id="editProfileRole" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Your professional role" />
-      </div>
-
-      <div>
-        <label for="editSkills" class="block text-gray-700 mb-1 font-medium">Skills</label>
-        <textarea id="editSkills" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" placeholder="Python, SQL, Data Visualization..."></textarea>
-        <p class="text-xs text-gray-500 mt-1">Separate skills with commas (max 10)</p>
-      </div>
-
-      <div class="pt-2">
-        <h3 class="font-medium text-gray-700 mb-2">Social Links</h3>
-        <div class="space-y-3">
-          <div class="flex items-center">
-            <i class="fab fa-linkedin mr-2 text-blue-600 w-5"></i>
-            <input type="url" id="editLinkedIn" class="flex-1 p-2 border border-gray-300 rounded-md" placeholder="https://linkedin.com/in/username" />
-          </div>
-          <div class="flex items-center">
-            <i class="fab fa-github mr-2 text-gray-800 w-5"></i>
-            <input type="url" id="editGitHub" class="flex-1 p-2 border border-gray-300 rounded-md" placeholder="https://github.com/username" />
-          </div>
-          <div class="flex items-center">
-            <i class="fab fa-twitter mr-2 text-blue-400 w-5"></i>
-            <input type="url" id="editTwitter" class="flex-1 p-2 border border-gray-300 rounded-md" placeholder="https://twitter.com/username" />
-          </div>
-        </div>
-      </div>
-
-      <div class="flex justify-between pt-4">
-        <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg transition-all">
-          Cancel
-        </button>
-        <button type="submit" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all flex items-center">
-          <i class="fas fa-save mr-2"></i> Save Changes
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<script>
-// Initialize with empty profile
-document.addEventListener('DOMContentLoaded', function() {
-  // Set current date
-  const now = new Date();
-  document.getElementById('joinDate').textContent = new Intl.DateTimeFormat('en-US', { 
-    month: 'short', 
-    year: 'numeric' 
-  }).format(now);
-  
-  // Load from localStorage if available
-  if (localStorage.getItem('profileName')) {
-    document.getElementById('profileName').textContent = localStorage.getItem('profileName');
-    document.getElementById('editProfileName').value = localStorage.getItem('profileName');
-  }
-  
-  if (localStorage.getItem('profileRole')) {
-    document.getElementById('profileRole').textContent = localStorage.getItem('profileRole');
-    document.getElementById('editProfileRole').value = localStorage.getItem('profileRole');
-  }
-  
-  if (localStorage.getItem('skills')) {
-    const skills = JSON.parse(localStorage.getItem('skills'));
-    renderSkills(skills);
-    document.getElementById('editSkills').value = skills.join(", ");
-  }
-  
-  if (localStorage.getItem('linkedin')) {
-    updateSocialLink('linkedin', localStorage.getItem('linkedin'), 'fab fa-linkedin', 'text-blue-600');
-    document.getElementById('editLinkedIn').value = localStorage.getItem('linkedin');
-  }
-  
-  if (localStorage.getItem('github')) {
-    updateSocialLink('github', localStorage.getItem('github'), 'fab fa-github', 'text-gray-800');
-    document.getElementById('editGitHub').value = localStorage.getItem('github');
-  }
-  
-  if (localStorage.getItem('twitter')) {
-    updateSocialLink('twitter', localStorage.getItem('twitter'), 'fab fa-twitter', 'text-blue-400');
-    document.getElementById('editTwitter').value = localStorage.getItem('twitter');
-  }
-  
-  // Set up form submission
-  document.getElementById('editProfileForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    saveProfileChanges();
-  });
-});
-
-function renderSkills(skills) {
-  const skillsList = document.getElementById('skillsList');
-  skillsList.innerHTML = '';
-  
-  // Skill icons mapping
-  const skillIcons = {
-    'python': 'fab fa-python',
-    'sql': 'fas fa-database',
-    'javascript': 'fab fa-js',
-    'java': 'fab fa-java',
-    'html': 'fab fa-html5',
-    'css': 'fab fa-css3',
-    'react': 'fab fa-react',
-    'node': 'fab fa-node-js',
-    'git': 'fab fa-git-alt',
-    'docker': 'fab fa-docker',
-    'aws': 'fab fa-aws',
-    'linux': 'fab fa-linux',
-    'php': 'fab fa-php',
-    'r': 'fas fa-chart-line',
-    'tableau': 'fas fa-chart-bar',
-    'excel': 'fas fa-file-excel',
-    'machine learning': 'fas fa-brain',
-    'ai': 'fas fa-robot',
-    'data science': 'fas fa-chart-pie',
-    'cybersecurity': 'fas fa-shield-alt',
-    'cloud': 'fas fa-cloud',
-    'devops': 'fas fa-server',
-    'agile': 'fas fa-tasks',
-    'scrum': 'fas fa-users'
-  };
-  
-  skills.forEach(skill => {
-    const span = document.createElement('span');
-    span.className = 'skill-tag';
-    
-    // Find matching icon or use default
-    const lowerSkill = skill.toLowerCase();
-    let iconClass = 'fas fa-code';
-    
-    for (const [key, value] of Object.entries(skillIcons)) {
-      if (lowerSkill.includes(key)) {
-        iconClass = value;
-        break;
-      }
-    }
-    
-    span.innerHTML = `<i class="${iconClass} mr-1"></i> ${skill}`;
-    skillsList.appendChild(span);
-  });
-}
-
-function openModal() {
-  document.getElementById('editModal').classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
-  
-  // Pre-fill current values
-  document.getElementById('editProfileName').value = document.getElementById('profileName').textContent;
-  document.getElementById('editProfileRole').value = document.getElementById('profileRole').textContent;
-  
-  // Get current skills
-  const skills = Array.from(document.getElementById('skillsList').children)
-    .map(span => span.textContent.trim().replace(/\s+/g, ' '));
-  document.getElementById('editSkills').value = skills.join(', ');
-  
-  // Social links
-  document.getElementById('editLinkedIn').value = document.getElementById('linkedin').href !== '#' ? 
-    document.getElementById('linkedin').href : '';
-  document.getElementById('editGitHub').value = document.getElementById('github').href !== '#' ? 
-    document.getElementById('github').href : '';
-  document.getElementById('editTwitter').value = document.getElementById('twitter').href !== '#' ? 
-    document.getElementById('twitter').href : '';
-}
-
-function closeModal() {
-  document.getElementById('editModal').classList.add('hidden');
-  document.body.style.overflow = 'auto';
-}
-
-function handleAvatarUpload(event) {
-  const file = event.target.files[0];
-  if (file) {
-    if (!file.type.startsWith('image/')) {
-      showToast('Please select an image file', 'error');
-      return;
-    }
-    
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      document.getElementById('profileImage').src = e.target.result;
-      showToast('Profile picture updated!', 'success');
-      localStorage.setItem('avatar', e.target.result);
-    };
-    reader.readAsDataURL(file);
-  }
-}
-
-function uploadResume(event) {
-  const file = event.target.files[0];
-  if (file) {
-    if (file.type !== 'application/pdf') {
-      showToast('Please upload a PDF file', 'error');
-      event.target.value = '';
-      return;
-    }
-    
-    document.getElementById('resumeFileName').textContent = file.name;
-    showToast('Resume uploaded!', 'success');
-    localStorage.setItem('resume', file.name);
-  }
-}
-
-function deleteResume() {
-  if (confirm('Are you sure you want to remove your resume?')) {
-    document.getElementById('resumeFileName').textContent = 'Not uploaded';
-    document.getElementById('resumeInput').value = '';
-    showToast('Resume removed', 'info');
-    localStorage.removeItem('resume');
-  }
-}
-
-function saveProfileChanges() {
-  // Save name and role
-  const name = document.getElementById('editProfileName').value.trim();
-  const role = document.getElementById('editProfileRole').value.trim();
-  
-  document.getElementById('profileName').textContent = name || 'Your Name';
-  document.getElementById('profileRole').textContent = role || 'Your Profession';
-  
-  localStorage.setItem('profileName', name);
-  localStorage.setItem('profileRole', role);
-  
-  // Save skills
-  const skillsInput = document.getElementById('editSkills').value;
-  const skills = skillsInput.split(',')
-    .map(skill => skill.trim())
-    .filter(skill => skill.length > 0)
-    .slice(0, 10); // Limit to 10 skills
-  
-  renderSkills(skills);
-  localStorage.setItem('skills', JSON.stringify(skills));
-  
-  // Update progress based on profile completeness
-  updateProfileProgress();
-  
-  // Save social links
-  const linkedin = document.getElementById('editLinkedIn').value.trim();
-  const github = document.getElementById('editGitHub').value.trim();
-  const twitter = document.getElementById('editTwitter').value.trim();
-  
-  updateSocialLink('linkedin', linkedin, 'fab fa-linkedin', 'text-blue-600');
-  updateSocialLink('github', github, 'fab fa-github', 'text-gray-800');
-  updateSocialLink('twitter', twitter, 'fab fa-twitter', 'text-blue-400');
-  
-  if (linkedin) localStorage.setItem('linkedin', linkedin);
-  if (github) localStorage.setItem('github', github);
-  if (twitter) localStorage.setItem('twitter', twitter);
-  
-  showToast('Profile saved successfully!', 'success');
-  closeModal();
-}
-
-function updateSocialLink(id, url, iconClass, iconColorClass) {
-  const linkElement = document.getElementById(id);
-  
-  if (url && isValidUrl(url)) {
-    linkElement.href = url;
-    // Display just the username/domain part
-    try {
-      const urlObj = new URL(url);
-      let displayText = urlObj.hostname.replace('www.', '') + urlObj.pathname;
-      displayText = displayText.replace(/\/$/, ''); // Remove trailing slash
-      linkElement.innerHTML = `<i class="${iconClass} ${iconColorClass} mr-3 w-5"></i> ${displayText}`;
-    } catch {
-      linkElement.innerHTML = `<i class="${iconClass} ${iconColorClass} mr-3 w-5"></i> ${url}`;
-    }
-  } else {
-    linkElement.href = '#';
-    linkElement.innerHTML = `<i class="${iconClass} text-gray-400 mr-3 w-5"></i> ${id.charAt(0).toUpperCase() + id.slice(1)}`;
-  }
-}
-
-function isValidUrl(string) {
-  try {
-    new URL(string);
-    return true;
-  } catch (_) {
-    return false;
-  }
-}
-
-function updateProfileProgress() {
-  // Calculate completeness score (0-100)
-  let score = 0;
-  
-  if (localStorage.getItem('profileName') && localStorage.getItem('profileName') !== 'Your Name') score += 20;
-  if (localStorage.getItem('profileRole') && localStorage.getItem('profileRole') !== 'Your Profession') score += 20;
-  if (localStorage.getItem('skills') && JSON.parse(localStorage.getItem('skills')).length > 0) score += 20;
-  if (localStorage.getItem('linkedin')) score += 20;
-  if (localStorage.getItem('resume')) score += 20;
-  
-  // Update progress bar
-  document.getElementById('progressFill').style.width = `${score}%`;
-  document.getElementById('progressText').textContent = `${Math.floor(score/20)}/5 steps completed`;
-  
-  // Update roadmap suggestion based on skills
-  if (localStorage.getItem('skills')) {
-    const skills = JSON.parse(localStorage.getItem('skills')).map(s => s.toLowerCase());
-    
-    if (skills.some(s => s.includes('react') || s.includes('javascript') || s.includes('frontend'))) {
-      document.getElementById('roadmap').textContent = 'Frontend Developer';
-    } else if (skills.some(s => s.includes('python') || s.includes('sql') || s.includes('data'))) {
-      document.getElementById('roadmap').textContent = 'Data Analyst';
-    } else if (skills.some(s => s.includes('node') || s.includes('backend') || s.includes('api'))) {
-      document.getElementById('roadmap').textContent = 'Backend Developer';
-    } else if (skills.some(s => s.includes('cloud') || s.includes('aws') || s.includes('devops'))) {
-      document.getElementById('roadmap').textContent = 'DevOps Engineer';
-    } else {
-      document.getElementById('roadmap').textContent = 'Tech Professional';
-    }
-  }
-}
-
-function showToast(message, type) {
-  const toast = document.createElement('div');
-  toast.className = `fixed bottom-4 right-4 px-4 py-2 rounded-md shadow-lg text-white ${
-    type === 'success' ? 'bg-green-500' : 
-    type === 'error' ? 'bg-red-500' : 'bg-blue-500'
-  }`;
-  toast.textContent = message;
-  document.body.appendChild(toast);
-  
-  setTimeout(() => {
-    toast.classList.add('opacity-0', 'transition-opacity', 'duration-300');
-    setTimeout(() => toast.remove(), 300);
-  }, 3000);
-}
-
-// Initialize progress
-updateProfileProgress();
-</script>
 </body>
 </html>
